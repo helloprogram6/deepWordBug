@@ -64,19 +64,19 @@ if args.externaldata!='':
     if args.datatype == 'char':
         (data,numclass) = pickle.load(open(args.externaldata,'rb'))
         testchar = dataloader.Chardata(data, getidx = True)
-        test_loader = DataLoader(testchar,batch_size=args.batchsize, num_workers=4, shuffle=False)
-        alphabet = trainchar.alphabet
+        test_loader = DataLoader(testchar,batch_size=args.batchsize, num_workers=0, shuffle=False)
+        alphabet = testchar.alphabet
     elif args.datatype == 'word':
         (data,word_index,numclass) = pickle.load(open(args.externaldata,'rb'))
         testword = dataloader.Worddata(data, getidx = True)
-        test_loader = DataLoader(testword,batch_size=args.batchsize, num_workers=4,shuffle=False)  
+        test_loader = DataLoader(testword,batch_size=args.batchsize, num_workers=0,shuffle=False)
 else:
     if args.datatype == "char":
         (train,test,numclass) = loaddata.loaddata(args.data)
         trainchar = dataloader.Chardata(train, getidx = True)
         testchar = dataloader.Chardata(test, getidx = True)
-        train_loader = DataLoader(trainchar,batch_size=args.batchsize, num_workers=4, shuffle = True)
-        test_loader = DataLoader(testchar,batch_size=args.batchsize, num_workers=4, shuffle=True)
+        train_loader = DataLoader(trainchar,batch_size=args.batchsize, num_workers=0, shuffle = True)
+        test_loader = DataLoader(testchar,batch_size=args.batchsize, num_workers=0, shuffle=True)
         alphabet = trainchar.alphabet
         maxlength = args.charlength
     elif args.datatype == "word":
@@ -84,8 +84,8 @@ else:
         word_index = tokenizer.word_index
         trainword = dataloader.Worddata(train, getidx = True, rawdata = rawtrain)
         testword = dataloader.Worddata(test, getidx = True, rawdata = rawtest)
-        train_loader = DataLoader(trainword,batch_size=args.batchsize, num_workers=4, shuffle = True)
-        test_loader = DataLoader(testword,batch_size=args.batchsize, num_workers=4,shuffle=True)
+        train_loader = DataLoader(trainword,batch_size=args.batchsize, num_workers=0, shuffle = True)
+        test_loader = DataLoader(testword,batch_size=args.batchsize, num_workers=0, shuffle=True)
         maxlength =  args.wordlength
 if args.model == "charcnn":
     model = model.CharCNN(classes = numclass)

@@ -157,7 +157,7 @@ class Tokenizer(object):
             raise TypeError('Unrecognized keyword arguments: ' + str(kwargs))
 
         self.word_counts = OrderedDict()
-        self.word_docs = defaultdict(int)
+        self.word_docs = defaultdict(int) #初始化为 0
         self.filters = filters
         self.split = split
         self.lower = lower

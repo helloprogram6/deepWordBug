@@ -16,7 +16,7 @@ def save_checkpoint(state, is_best, filename='checkpoint.dat'):
         
 parser = argparse.ArgumentParser(description='Data')
 parser.add_argument('--data', type=int, default=0, metavar='N',
-                    help='data 0 - 6')
+                    help='data 0 - 11')
 parser.add_argument('--charlength', type=int, default=1014, metavar='N',
                     help='length: default 1014')
 parser.add_argument('--wordlength', type=int, default=500, metavar='N',
@@ -63,20 +63,20 @@ if args.datatype == "char":
     (train,test,numclass) = loaddata.loaddata(args.data)
     trainchar = dataloader.Chardata(train,backward = args.backward, length = args.charlength)
     testchar = dataloader.Chardata(test,backward = args.backward,length = args.charlength)
-    train_loader = DataLoader(trainchar,batch_size=args.batchsize, num_workers=4, shuffle = True)
-    test_loader = DataLoader(testchar,batch_size=args.batchsize, num_workers=4)
+    train_loader = DataLoader(trainchar,batch_size=args.batchsize, num_workers=0, shuffle = True)
+    test_loader = DataLoader(testchar,batch_size=args.batchsize, num_workers=0)
 elif args.datatype == "word":
     (train,test,tokenizer,numclass) = loaddata.loaddatawithtokenize(args.data,nb_words = args.dictionarysize, datalen = args.wordlength)
     trainword = dataloader.Worddata(train,backward = args.backward)
     testword = dataloader.Worddata(test,backward = args.backward)
-    train_loader = DataLoader(trainword,batch_size=args.batchsize, num_workers=4, shuffle = True)
-    test_loader = DataLoader(testword,batch_size=args.batchsize, num_workers=4)
+    train_loader = DataLoader(trainword,batch_size=args.batchsize, num_workers=0, shuffle = True)
+    test_loader = DataLoader(testword,batch_size=args.batchsize, num_workers=0)
 
 if args.model == "charcnn":
     model = model.CharCNN(classes = numclass)
-elif args.model == "simplernn":
+elif args.model == "simplernn":    #单向单词-lstm
     model = model.smallRNN(classes = numclass)
-elif args.model == "bilstm":
+elif args.model == "bilstm":    #双向单词-lstm
     model = model.smallRNN(classes = numclass, bidirection = True)
 elif args.model == "smallcharrnn":
     model = model.smallcharRNN(classes = numclass)

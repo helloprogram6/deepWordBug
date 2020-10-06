@@ -3,8 +3,8 @@ import csv
 csv.field_size_limit(2147483647)
 from preprocessing import Tokenizer, pad_sequences
 
-# small = True
-small = False
+small = True
+#small = False
 if small:
     textdatafolder = 'textdata_small/'
 else:
@@ -33,11 +33,12 @@ class dataset:
                 self.content.append((row[1] + " " + row[2]).lower())           
             elif self.columns==4:
                 self.output.append(int(row[0])-1)
-                self.content.append((row[1] + " " + row[2] + " " + row[3]).lower())       
+                self.content.append((row[1] + " " + row[2] + " " + row[3]).lower())
+
 def loaddata(i = 0):
-    datanames = ['ag_news','amazon_review_full','amazon_review_polarity','dbpedia','sogou_news','yahoo_answers','yelp_review_full','yelp_review_polarity','enron','blog-authorship-corpus']
-    lines = [3,3,3,3,3,4,2,2,2,2]
-    classes= [4,5,2,14,5,10,5,2,2,3]
+    datanames = ['ag_news','amazon_review_full','amazon_review_polarity','dbpedia','sogou_news','yahoo_answers','yelp_review_full','yelp_review_polarity','enron','blog-authorship-corpus','imdb']
+    lines = [3,3,3,3,3,4,2,2,2,2,2]
+    classes= [4,5,2,14,5,10,5,2,2,3,2]
     # if not 'blog' in datanames[i]:
     trainadd = textdatafolder+datanames[i]+'_csv/train.csv'
     testadd = textdatafolder+datanames[i]+'_csv/test.csv'
