@@ -105,6 +105,8 @@ except:
     model.load_state_dict(state['state_dict'])
     model = model.module
 
+print(model)
+
 alltimebest = 0
 bestfeature = []
 def recoveradv(rawsequence, index2word, inputs, advwords):
@@ -198,7 +200,7 @@ def attackword(maxbatch = None):
     origsampleidx = []
     
     for dataid, data in enumerate(test_loader):
-        print(dataid)
+        print(dataid,len(test_loader))
         if maxbatch!=None and dataid >= maxbatch:
             break
         inputs,target, idx, raw = data
@@ -281,4 +283,4 @@ elif args.datatype == "word":
             if word_index[i] + 3 < args.dictionarysize:
                 index2word[word_index[i]+3]=i  
     attackword(maxbatch = args.maxbatches)
-
+print("attack done")

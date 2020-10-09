@@ -3,8 +3,8 @@ import csv
 csv.field_size_limit(2147483647)
 from preprocessing import Tokenizer, pad_sequences
 
-small = True
-#small = False
+#small = True
+small = False
 if small:
     textdatafolder = 'textdata_small/'
 else:

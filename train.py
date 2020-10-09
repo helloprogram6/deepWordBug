@@ -132,4 +132,4 @@ for epoch in range(args.epochs+1):
             'bestacc': bestacc,
             'optimizer' : optimizer.state_dict(),
         }, is_best, filename = fname)
-    
+print("train done,bestac=%f",bestacc)
